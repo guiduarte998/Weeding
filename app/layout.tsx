@@ -28,7 +28,6 @@ export default function RootLayout({
               <Link href="/">Início</Link>
               <Link href="/rsvp">Confirmação</Link>
               <Link href="/gifts">Presentes</Link>
-              <Link href="/admin">Admin</Link>
             </div>
           </nav>
         </header>

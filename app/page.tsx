@@ -8,7 +8,7 @@ export default function HomePage() {
   return (
     <main className="container">
       <HeroBanner
-        imageUrl="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=2000&q=80"
+        imageUrl="/hero-save-the-date.png"
         title="Guilherme & Kelly"
         subtitle="Vamos nos casar em 13 de Junho de 2026"
       />
