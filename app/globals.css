@@ -84,6 +84,13 @@ a {
   border-bottom: 1px solid transparent;
 }
 
+.site-header__start {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  min-width: 0;
+}
+
 .site-logo {
   font-family: var(--font-serif), serif;
   font-size: 1.35rem;
@@ -91,6 +98,47 @@ a {
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--text);
+  line-height: 1.15;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.site-nav-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 44px;
+  height: 44px;
+  margin: 0;
+  padding: 0;
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+  cursor: pointer;
+  color: var(--text);
+}
+
+.site-nav-toggle:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.site-nav-toggle__bar {
+  display: block;
+  width: 22px;
+  height: 2px;
+  margin-inline: auto;
+  background: currentColor;
+  border-radius: 1px;
+}
+
+.site-header--invite .site-nav-toggle {
+  color: var(--invite-burgundy-deep);
+}
+
+.site-header--invite .site-nav-toggle:focus-visible {
+  outline-color: var(--invite-burgundy);
 }
 
 .site-nav {
@@ -127,6 +175,110 @@ a {
 
 .site-header--invite .site-nav a:hover {
   color: var(--invite-burgundy-deep);
+}
+
+/* Cabeçalho: menu em painel no mobile (evita logo “G & K” quebrando e links cortados). */
+@media (max-width: 767px) {
+  .site-header__start {
+    flex: 1;
+    justify-content: space-between;
+  }
+
+  .site-nav-toggle {
+    display: inline-flex;
+    flex-shrink: 0;
+  }
+
+  .site-nav-backdrop {
+    position: fixed;
+    inset: var(--header-h) 0 0 0;
+    z-index: 45;
+    margin: 0;
+    padding: 0;
+    border: none;
+    background: rgba(0, 0, 0, 0.45);
+    cursor: pointer;
+    animation: siteNavBackdropIn 180ms ease-out both;
+  }
+
+  .site-header--invite .site-nav-backdrop {
+    background: rgba(58, 37, 40, 0.35);
+  }
+
+  .site-nav {
+    position: fixed;
+    top: var(--header-h);
+    right: 0;
+    bottom: 0;
+    z-index: 46;
+    width: min(20rem, 88vw);
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    gap: 0;
+    margin: 0;
+    padding: 0.75rem 0 1.5rem;
+    font-size: 0.72rem;
+    letter-spacing: 0.16em;
+    background: rgba(14, 14, 14, 0.98);
+    border-left: 1px solid var(--border-strong);
+    box-shadow: -12px 0 40px rgba(0, 0, 0, 0.35);
+    transform: translateX(100%);
+    visibility: hidden;
+    pointer-events: none;
+    transition:
+      transform 200ms ease,
+      visibility 200ms;
+  }
+
+  .site-header--invite .site-nav {
+    background: linear-gradient(180deg, rgba(252, 249, 245, 0.99) 0%, rgba(235, 228, 220, 0.99) 100%);
+    border-left: 1px solid rgba(107, 42, 50, 0.2);
+    box-shadow: -12px 0 36px rgba(74, 28, 34, 0.12);
+    color: rgba(74, 28, 34, 0.72);
+  }
+
+  .site-nav--open {
+    transform: translateX(0);
+    visibility: visible;
+    pointer-events: auto;
+  }
+
+  .site-nav a {
+    padding: 0.95rem 1.25rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  }
+
+  .site-header--invite .site-nav a {
+    border-bottom-color: rgba(107, 42, 50, 0.12);
+    color: rgba(74, 28, 34, 0.72);
+  }
+
+  .site-header--invite .site-nav a:hover {
+    color: var(--invite-burgundy-deep);
+    background: rgba(107, 42, 50, 0.06);
+  }
+
+  .site-nav a:hover {
+    color: var(--text);
+    background: rgba(255, 255, 255, 0.04);
+  }
+}
+
+@keyframes siteNavBackdropIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@media (min-width: 768px) {
+  .site-header__start {
+    flex: 0 1 auto;
+  }
 }
 
 .site-main {
@@ -259,33 +411,22 @@ a {
   vertical-align: top;
 }
 
-/* Convite: em telas estreitas “aproxima” a arte (um pouco maior), sem mudar o layout no desktop. */
+/* Convite: em telas estreitas usa a largura útil sem “bleed”/zoom — evita cortar a arte nas bordas. */
 @media (max-width: 767px) {
   .invite-visual-section {
     padding-left: max(0.5rem, env(safe-area-inset-left, 0px));
     padding-right: max(0.5rem, env(safe-area-inset-right, 0px));
     padding-top: clamp(0.65rem, 2vw, 1rem);
     padding-bottom: clamp(0.85rem, 2.5vw, 1.15rem);
-    overflow-x: clip;
   }
 
   .invite-visual-frame {
     max-width: none;
-    /* Leve “zoom”: a imagem fica ~10% mais larga que a área útil; as bordas laterais somem um pouco. */
-    width: 110%;
-    margin-left: -5%;
-    margin-right: -5%;
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
     border-radius: 6px;
     box-shadow: 0 4px 14px 0 rgba(63, 69, 81, 0.12);
-  }
-}
-
-@media (max-width: 380px) {
-  .invite-visual-frame {
-    width: 118%;
-    margin-left: -9%;
-    margin-right: -9%;
-    border-radius: 4px;
   }
 }
 
