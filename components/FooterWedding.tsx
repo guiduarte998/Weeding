@@ -5,10 +5,7 @@ export default function FooterWedding() {
       <p className="site-footer-sign">Com carinho,</p>
       <p className="site-footer-names">Guilherme & Kelly</p>
       <p className="site-footer-note">
-        Dúvidas? Escreva para{" "}
-        <a href="mailto:guiduarte998@gmail.com" className="site-footer-link">
-          guiduarte998@gmail.com
-        </a>
+        Dúvidas? Entre em contato com a gente!
       </p>
     </footer>
   );

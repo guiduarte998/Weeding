@@ -6,46 +6,125 @@ import { useState } from "react";
 type Gift = {
   id: number;
   title: string;
-  description: string;
   amount_cents: number;
-  /** Imagem ilustrativa — troque por URLs/arquivos seus quando quiser. */
   imageSrc: string;
 };
 
+/** Preços em centavos de BRL (ex.: R$ 350,00 → 35000). */
 const starterGifts: Gift[] = [
   {
     id: 1,
-    title: "Jantar para dois",
-    description: "Ajude a celebrar nossa lua de mel.",
-    amount_cents: 18000,
-    imageSrc:
-      "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800&q=80&auto=format&fit=crop"
+    title: "Bravinho & rapidinho tunado",
+    amount_cents: 4000000,
+    imageSrc: "/fiat500.jpg"
   },
   {
     id: 2,
-    title: "Noite de hotel",
-    description: "Uma estadia especial para nós.",
-    amount_cents: 35000,
-    imageSrc:
-      "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800&q=80&auto=format&fit=crop"
+    title: "Marmita no Laço Aclimação",
+    amount_cents: 3000,
+    imageSrc: "/laco.png"
   },
   {
     id: 3,
-    title: "Álbum de fotos",
-    description: "Livro impresso de memórias.",
-    amount_cents: 12000,
-    imageSrc:
-      "https://images.unsplash.com/photo-1520390138845-fd2d229dd552?w=800&q=80&auto=format&fit=crop"
+    title: "GTA 6 pro noivo",
+    amount_cents: 35000,
+    imageSrc: "/GTA6.png"
   },
   {
     id: 4,
-    title: "Passagem de avião",
-    description: "Um trecho para a lua de mel ou uma viagem especial.",
-    amount_cents: 120000,
-    imageSrc:
-      "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=800&q=80&auto=format&fit=crop"
+    title: "Sylvanians Families para noiva",
+    amount_cents: 35000,
+    imageSrc: "/families.jpg"
+  },
+  {
+    id: 5,
+    title: "Makita pro noivo",
+    amount_cents: 9900,
+    imageSrc: "/makita.jpg"
+  },
+  {
+    id: 6,
+    title: "Decor para a casa nova",
+    amount_cents: 30000,
+    imageSrc: "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=800&q=80&auto=format&fit=crop"
+  },
+  {
+    id: 7,
+    title: "Jacuzzi para a cobertura",
+    amount_cents: 1000000,
+    imageSrc: "/jacuzzi.jpg"
+  },
+  {
+    id: 8,
+    title: "Retiro legendários pro noivo",
+    amount_cents: 10000000,
+    imageSrc: "/legendarios.png"
+  },
+  {
+    id: 9,
+    title: "Spa Day para noiva",
+    amount_cents: 50000,
+    imageSrc: "/budha.jpg"
+  },
+  {
+    id: 10,
+    title: "Luminária nova para noiva",
+    amount_cents: 10000,
+    imageSrc: "/luminaria.png"
+  },
+  {
+    id: 11,
+    title: "Controladora de DJ pro noivo",
+    amount_cents: 1000000,
+    imageSrc: "/cdj.png"
+  },
+  {
+    id: 12,
+    title: "Ingresso da Formula 1 pro noivo",
+    amount_cents: 200000,
+    imageSrc: "/f1.png"
+  },
+  {
+    id: 13,
+    title: "Ingresso VIP do Harry Styles",
+    amount_cents: 200000,
+    imageSrc: "/aperture.jpg"
+  },
+  {
+    id: 14,
+    title: "Aula de ski para os noivos",
+    amount_cents: 70000,
+    imageSrc: "https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=800&q=80&auto=format&fit=crop"
+  },
+  {
+    id: 15,
+    title: "Jantar romântico em Santorini",
+    amount_cents: 50000,
+    imageSrc: "/santorini1.jpg"
+  },
+  {
+    id: 16,
+    title: "Lembrancinhas da lua de mel",
+    amount_cents: 1000,
+    imageSrc: "/santorini2.jpg"
+  },
+  {
+    id: 17,
+    title: "Petiscos pro Sirius",
+    amount_cents: 5000,
+    imageSrc: "/petiscos.png"
+  },
+  {
+    id: 18,
+    title: "Reverter tudo para o Sirius",
+    amount_cents: 100,
+    imageSrc: "/si.jpeg"
   }
 ];
+
+function formatBRL(cents: number) {
+  return new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" }).format(cents / 100);
+}
 
 type GiftListProps = {
   inviteTheme?: boolean;
@@ -103,8 +182,7 @@ export default function GiftList({ inviteTheme = false }: GiftListProps) {
               </div>
               <div className="gift-card-body">
                 <h3 className="gift-title">{gift.title}</h3>
-                <p className="gift-desc">{gift.description}</p>
-                <p className="gift-price">R$ {(gift.amount_cents / 100).toFixed(2).replace(".", ",")}</p>
+                <p className="gift-price">{formatBRL(gift.amount_cents)}</p>
                 <button
                   className={`btn btn--block ${inviteTheme ? "btn--invite-primary" : "btn--outline"}`}
                   type="button"

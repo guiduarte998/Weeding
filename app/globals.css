@@ -2,6 +2,14 @@
   color-scheme: dark;
   /* Onde o menu “Detalhes” rola no convite (percentual da altura da arte). Ajuste se não bater com o texto na imagem. */
   --invite-detalhes-y: 72%;
+  /* Áreas clicáveis sobre o convite (topo e altura em % da altura do quadro). */
+  --invite-hotspot-presentes-top: 77%;
+  --invite-hotspot-presentes-h: 9%;
+  --invite-hotspot-confirmacao-top: 86%;
+  --invite-hotspot-confirmacao-h: 11%;
+  --invite-hotspot-link-top: 58%;
+  --invite-hotspot-link-h: 6%;
+  --invite-hotspot-link-inset: 15%;
   --invite-burgundy: #6b2a32;
   --invite-burgundy-deep: #4a1c22;
   --invite-cream: #f7f3ef;
@@ -147,12 +155,83 @@ a {
 
 .invite-visual-frame {
   position: relative;
+  isolation: isolate;
   max-width: min(94vw, 920px);
   margin: 0 auto;
   overflow: hidden;
   border-radius: 8px;
   box-shadow: 0 2px 8px 0 rgba(63, 69, 81, 0.16);
   line-height: 0;
+}
+
+.invite-visual-frame picture,
+.invite-visual-frame > picture,
+.invite-canva-embed {
+  position: relative;
+  z-index: 0;
+}
+
+.invite-hotspots {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.invite-hotspot {
+  position: absolute;
+  pointer-events: auto;
+  display: block;
+  border-radius: 4px;
+}
+
+.invite-hotspot:focus-visible {
+  outline: 2px solid var(--invite-burgundy);
+  outline-offset: 2px;
+}
+
+.invite-hotspot--presentes {
+  left: 5%;
+  right: 5%;
+  top: var(--invite-hotspot-presentes-top);
+  height: var(--invite-hotspot-presentes-h);
+}
+
+.invite-hotspot--confirmacao {
+  left: 5%;
+  right: 5%;
+  top: var(--invite-hotspot-confirmacao-top);
+  height: var(--invite-hotspot-confirmacao-h);
+}
+
+.invite-hotspot--link {
+  left: var(--invite-hotspot-link-inset);
+  right: var(--invite-hotspot-link-inset);
+  top: var(--invite-hotspot-link-top);
+  height: var(--invite-hotspot-link-h);
+}
+
+/* Embed Canva (mesma proporção do código de incorporação) */
+.invite-visual-frame--embed {
+  box-shadow: 0 2px 8px 0 rgba(63, 69, 81, 0.16);
+}
+
+.invite-canva-embed {
+  position: relative;
+  width: 100%;
+  height: 0;
+  padding-top: 562.2255%;
+  overflow: hidden;
+}
+
+.invite-canva-embed iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+  padding: 0;
+  margin: 0;
 }
 
 .invite-inpage-anchor {
@@ -178,6 +257,36 @@ a {
   height: auto;
   display: block;
   vertical-align: top;
+}
+
+/* Convite: em telas estreitas “aproxima” a arte (um pouco maior), sem mudar o layout no desktop. */
+@media (max-width: 767px) {
+  .invite-visual-section {
+    padding-left: max(0.5rem, env(safe-area-inset-left, 0px));
+    padding-right: max(0.5rem, env(safe-area-inset-right, 0px));
+    padding-top: clamp(0.65rem, 2vw, 1rem);
+    padding-bottom: clamp(0.85rem, 2.5vw, 1.15rem);
+    overflow-x: clip;
+  }
+
+  .invite-visual-frame {
+    max-width: none;
+    /* Leve “zoom”: a imagem fica ~10% mais larga que a área útil; as bordas laterais somem um pouco. */
+    width: 110%;
+    margin-left: -5%;
+    margin-right: -5%;
+    border-radius: 6px;
+    box-shadow: 0 4px 14px 0 rgba(63, 69, 81, 0.12);
+  }
+}
+
+@media (max-width: 380px) {
+  .invite-visual-frame {
+    width: 118%;
+    margin-left: -9%;
+    margin-right: -9%;
+    border-radius: 4px;
+  }
 }
 
 .site-anchor {
@@ -334,11 +443,6 @@ a {
 
 .site-section--details-bleed {
   padding-bottom: 0;
-  border-top: 1px solid var(--border);
-}
-
-.site-section--gallery-bleed {
-  padding: clamp(3.5rem, 8vw, 4.5rem) 0 0;
   border-top: 1px solid var(--border);
 }
 
@@ -685,57 +789,10 @@ a {
   margin: 0;
 }
 
-.gift-desc {
-  flex: 1;
-  margin: 0;
-  font-size: 0.88rem;
-  color: var(--text-muted);
-  line-height: 1.55;
-}
-
 .gift-price {
   margin: 0.5rem 0;
   font-size: 0.95rem;
   letter-spacing: 0.06em;
-}
-
-/* ——— Gallery full-bleed mosaic ——— */
-.gallery-mosaic {
-  display: grid;
-  grid-template-columns: 1fr;
-  width: 100%;
-}
-
-@media (min-width: 768px) {
-  .gallery-mosaic {
-    grid-template-columns: 1fr 1fr;
-  }
-}
-
-.gallery-mosaic-cell {
-  position: relative;
-  min-height: min(52vh, 560px);
-  overflow: hidden;
-}
-
-.gallery-mosaic-cell:nth-child(1) {
-  min-height: min(58vh, 620px);
-}
-
-@media (min-width: 768px) {
-  .gallery-mosaic-cell:nth-child(3) {
-    grid-column: span 2;
-    min-height: min(48vh, 520px);
-  }
-}
-
-.gallery-mosaic-img {
-  object-fit: cover;
-  transition: transform 8s ease;
-}
-
-.gallery-mosaic-cell:hover .gallery-mosaic-img {
-  transform: scale(1.05);
 }
 
 /* ——— Footer ——— */
@@ -991,6 +1048,12 @@ a {
   }
 }
 
+@media (min-width: 1200px) {
+  .gifts-grid--invite {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
 .gift-card-media {
   position: relative;
   aspect-ratio: 4 / 3;
@@ -1008,6 +1071,10 @@ a {
   flex: 1;
 }
 
+.gift-card-body .btn {
+  margin-top: auto;
+}
+
 .gift-card--invite {
   padding: 0;
   overflow: hidden;
@@ -1019,10 +1086,6 @@ a {
 
 .gift-card--invite .gift-title {
   color: var(--invite-burgundy-deep);
-}
-
-.gift-card--invite .gift-desc {
-  color: rgba(74, 28, 34, 0.72);
 }
 
 .gift-card--invite .gift-price {
@@ -1058,15 +1121,6 @@ a {
   text-align: center;
 }
 
-.home-invite-flow__gallery-intro {
-  text-align: center;
-}
-
-.site-section--gallery-invite {
-  padding-top: clamp(2rem, 5vw, 3rem);
-  padding-bottom: 0;
-}
-
 .countdown--invite {
   margin-top: 0.75rem;
 }
@@ -1086,34 +1140,6 @@ a {
 
 .countdown--invite .countdown-label {
   color: rgba(74, 28, 34, 0.48);
-}
-
-.gallery-mosaic--invite {
-  gap: clamp(10px, 2vw, 18px);
-  padding: 0 clamp(12px, 3vw, 28px) clamp(2.25rem, 5vw, 3.5rem);
-  max-width: 1100px;
-  margin: 0 auto;
-  width: 100%;
-}
-
-.gallery-mosaic--invite .gallery-mosaic-cell {
-  border-radius: 8px;
-  box-shadow: 0 10px 28px rgba(74, 28, 34, 0.1);
-  min-height: min(46vh, 500px);
-}
-
-.gallery-mosaic--invite .gallery-mosaic-cell:nth-child(1) {
-  min-height: min(50vh, 540px);
-}
-
-@media (min-width: 768px) {
-  .gallery-mosaic--invite .gallery-mosaic-cell:nth-child(3) {
-    min-height: min(42vh, 480px);
-  }
-}
-
-.gallery-mosaic--invite .gallery-mosaic-img {
-  border-radius: 8px;
 }
 
 /* ——— Animations ——— */
@@ -1152,8 +1178,7 @@ a {
   }
 
   .hero-image,
-  .hero-content-card,
-  .gallery-mosaic-img {
+  .hero-content-card {
     animation: none !important;
     transition: none !important;
   }

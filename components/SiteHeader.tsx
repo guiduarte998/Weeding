@@ -16,7 +16,7 @@ export default function SiteHeader() {
       </Link>
       <nav className="site-nav" aria-label="Principal">
         <Link href="/">Início</Link>
-        <Link href="/#detalhes">Detalhes</Link>
+        <a href={pathname === "/" ? "#detalhes" : "/#detalhes"}>Detalhes</a>
         <Link href="/locais">Locais</Link>
         <Link href="/confirmacao">Confirmação</Link>
         <Link href="/presentes">Presentes</Link>

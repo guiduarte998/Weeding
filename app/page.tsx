@@ -1,5 +1,4 @@
 import CanvaInviteEmbed from "@/components/CanvaInviteEmbed";
-import GalleryStrip from "@/components/GalleryStrip";
 import CountdownBlock from "@/components/CountdownBlock";
 import FooterWedding from "@/components/FooterWedding";
 
@@ -20,8 +19,6 @@ export default function HomePage() {
             <CountdownBlock variant="invite" />
           </div>
         </section>
-
-        <GalleryStrip variant="invite" />
       </div>
 
       <FooterWedding />
