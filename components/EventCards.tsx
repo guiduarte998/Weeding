@@ -1,3 +1,7 @@
+type EventCardsProps = {
+  variant?: "default" | "invite";
+};
+
 const events = [
   {
     title: "Civil (Cartório)",
@@ -19,9 +23,12 @@ const events = [
   }
 ];
 
-export default function EventCards() {
+export default function EventCards({ variant = "default" }: EventCardsProps) {
+  const stackClass =
+    variant === "invite" ? "details-bleed-stack details-bleed-stack--invite" : "details-bleed-stack";
+
   return (
-    <div className="details-bleed-stack">
+    <div className={stackClass}>
       {events.map((event) => (
         <article key={event.title} className="detail-bleed">
           <div className="detail-bleed-mapwrap">

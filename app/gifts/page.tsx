@@ -1,9 +1,5 @@
-import GiftList from "@/components/GiftList";
+import { redirect } from "next/navigation";
 
-export default function GiftsPage() {
-  return (
-    <main className="container">
-      <GiftList />
-    </main>
-  );
+export default function GiftsPageRedirect() {
+  redirect("/presentes");
 }

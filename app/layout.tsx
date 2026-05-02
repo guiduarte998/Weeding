@@ -1,6 +1,6 @@
 import "./globals.css";
 import type { Metadata } from "next";
-import Link from "next/link";
+import SiteHeader from "@/components/SiteHeader";
 import { Cormorant_Garamond, Montserrat } from "next/font/google";
 
 const fontSerif = Cormorant_Garamond({
@@ -28,17 +28,7 @@ export default function RootLayout({
   return (
     <html lang="pt-BR" className={`${fontSerif.variable} ${fontSans.variable}`}>
       <body className="site-body">
-        <header className="site-header">
-          <Link href="/#inicio" className="site-logo">
-            G & K
-          </Link>
-          <nav className="site-nav" aria-label="Principal">
-            <Link href="/#inicio">Início</Link>
-            <Link href="/#detalhes">Detalhes</Link>
-            <Link href="/#confirmacao">Confirmação</Link>
-            <Link href="/#presentes">Presentes</Link>
-          </nav>
-        </header>
+        <SiteHeader />
         {children}
       </body>
     </html>

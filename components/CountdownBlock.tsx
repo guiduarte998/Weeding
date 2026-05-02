@@ -15,7 +15,11 @@ function getRemaining(now: Date): Remaining {
   return { days, hours, minutes, seconds };
 }
 
-export default function CountdownBlock() {
+type CountdownBlockProps = {
+  variant?: "default" | "invite";
+};
+
+export default function CountdownBlock({ variant = "default" }: CountdownBlockProps) {
   const [remaining, setRemaining] = useState<Remaining>(() => getRemaining(new Date()));
 
   useEffect(() => {
@@ -30,8 +34,10 @@ export default function CountdownBlock() {
     { label: "Seg", value: remaining.seconds }
   ];
 
+  const countdownClass = variant === "invite" ? "countdown countdown--invite" : "countdown";
+
   return (
-    <div className="countdown">
+    <div className={countdownClass}>
       {cells.map((cell) => (
         <div key={cell.label} className="countdown-cell">
           <span className="countdown-value">{String(cell.value).padStart(2, "0")}</span>

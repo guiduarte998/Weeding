@@ -1,9 +1,5 @@
-import RSVPForm from "@/components/RSVPForm";
+import { redirect } from "next/navigation";
 
-export default function RSVPPage() {
-  return (
-    <main className="container">
-      <RSVPForm />
-    </main>
-  );
+export default function RSVPPageRedirect() {
+  redirect("/confirmacao");
 }
