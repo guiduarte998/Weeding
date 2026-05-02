@@ -1,7 +1,8 @@
 const events = [
   {
     title: "Civil (Cartório)",
-    date: "13 de Junho de 2026 - 10:30",
+    date: "13 de junho de 2026",
+    time: "10h30",
     place: "Cartório Cambuci, São Paulo",
     mapsUrl: "https://www.google.com/maps/search/?api=1&query=Cart%C3%B3rio%20Cambuci%2C%20S%C3%A3o%20Paulo",
     mapsEmbedUrl:
@@ -9,7 +10,8 @@ const events = [
   },
   {
     title: "Cerimônia",
-    date: "13 de Junho de 2026 - 13:00",
+    date: "13 de junho de 2026",
+    time: "13h00",
     place: "Rua Albina Barbosa 210, São Paulo",
     mapsUrl: "https://www.google.com/maps/search/?api=1&query=Rua%20Albina%20Barbosa%20210%2C%20S%C3%A3o%20Paulo",
     mapsEmbedUrl:
@@ -19,29 +21,31 @@ const events = [
 
 export default function EventCards() {
   return (
-    <section className="section">
-      <h2>Event Details</h2>
-      <div className="grid grid-2">
-        {events.map((event) => (
-          <article key={event.title} style={{ border: "1px solid #eee", borderRadius: 12, padding: "1rem" }}>
-            <h3>{event.title}</h3>
-            <p>{event.date}</p>
-            <p className="muted">{event.place}</p>
-            <div style={{ borderRadius: 12, overflow: "hidden", border: "1px solid #eee", margin: "0.75rem 0" }}>
-              <iframe
-                title={`${event.title} map`}
-                src={event.mapsEmbedUrl}
-                style={{ width: "100%", height: 240, border: 0 }}
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-              />
+    <div className="details-bleed-stack">
+      {events.map((event) => (
+        <article key={event.title} className="detail-bleed">
+          <div className="detail-bleed-mapwrap">
+            <iframe
+              className="detail-bleed-iframe"
+              title={`Mapa — ${event.title}`}
+              src={event.mapsEmbedUrl}
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              allowFullScreen
+            />
+            <div className="detail-bleed-gradient" aria-hidden />
+            <div className="detail-bleed-inner">
+              <p className="detail-kind">{event.title}</p>
+              <h3 className="detail-bleed-heading">{event.date}</h3>
+              <p className="detail-bleed-time">{event.time}</p>
+              <p className="detail-bleed-place">{event.place}</p>
+              <a className="btn btn--outline btn--inline" href={event.mapsUrl} target="_blank" rel="noopener noreferrer">
+                Abrir no Google Maps
+              </a>
             </div>
-            <a className="btn" href={event.mapsUrl} target="_blank">
-              Open Map
-            </a>
-          </article>
-        ))}
-      </div>
-    </section>
+          </div>
+        </article>
+      ))}
+    </div>
   );
 }

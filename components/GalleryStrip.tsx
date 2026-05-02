@@ -1,21 +1,34 @@
 import Image from "next/image";
 
 const photos = [
-  "https://images.unsplash.com/photo-1520854221256-17451cc331bf?auto=format&fit=crop&w=1400&q=80",
-  "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=1400&q=80",
-  "https://images.unsplash.com/photo-1606800052052-a08af7148866?auto=format&fit=crop&w=1400&q=80",
-  "https://images.unsplash.com/photo-1537907510278-a4b5d8e8f6cc?auto=format&fit=crop&w=1400&q=80"
+  "https://images.unsplash.com/photo-1520854221256-17451cc331bf?auto=format&fit=crop&w=2000&q=80",
+  "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=2000&q=80",
+  "https://images.unsplash.com/photo-1606800052052-a08af7148866?auto=format&fit=crop&w=2000&q=80",
+  "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=2000&q=80"
 ];
 
 export default function GalleryStrip() {
   return (
-    <section className="section">
-      <h2>Photos</h2>
-      <p className="muted">Replace these placeholders with your own gallery photos.</p>
-      <div className="grid grid-2">
-        {photos.map((src) => (
-          <div key={src} style={{ position: "relative", minHeight: 220, borderRadius: 12, overflow: "hidden" }}>
-            <Image src={src} alt="Wedding memory" fill style={{ objectFit: "cover" }} />
+    <section className="site-section site-section--gallery-bleed" aria-labelledby="gallery-heading">
+      <div className="site-inner site-inner--center site-inner--padded-bottom">
+        <p className="eyebrow">Memórias</p>
+        <h2 id="gallery-heading" className="section-title section-title--center">
+          Galeria
+        </h2>
+        <p className="lede lede--center">
+          Em breve trocamos por fotos de vocês. Por enquanto, referências em tela cheia.
+        </p>
+      </div>
+      <div className="gallery-mosaic">
+        {photos.map((src, i) => (
+          <div key={src} className="gallery-mosaic-cell">
+            <Image
+              src={src}
+              alt={`Momento ${i + 1}`}
+              fill
+              sizes="(max-width: 900px) 100vw, 50vw"
+              className="gallery-mosaic-img"
+            />
           </div>
         ))}
       </div>

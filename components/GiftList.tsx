@@ -29,24 +29,29 @@ export default function GiftList() {
   }
 
   return (
-    <section className="section">
-      <h2>Presentes</h2>
-      <p className="muted">Na v1, essa etapa usa um checkout de exemplo.</p>
-      <div className="grid grid-2">
-        {starterGifts.map((gift) => (
-          <article key={gift.id} style={{ border: "1px solid #eee", borderRadius: 12, padding: "1rem" }}>
-            <h3>{gift.title}</h3>
-            <p className="muted">{gift.description}</p>
-            <p>
-              <strong>${(gift.amount_cents / 100).toFixed(2)}</strong>
-            </p>
-            <button className="btn" type="button" onClick={() => startCheckout(gift.id)}>
-              Presentear
-            </button>
-          </article>
-        ))}
+    <section id="presentes" className="site-section site-section--band site-section--gifts" aria-labelledby="gifts-heading">
+      <div className="site-inner site-inner--wide">
+        <p className="eyebrow eyebrow--center">Lista de presentes</p>
+        <h2 id="gifts-heading" className="section-title section-title--center">
+          Presentes
+        </h2>
+        <p className="lede lede--center">
+          Sua presença já é o maior presente. Se quiser nos mimar com algo a mais, deixamos algumas sugestões abaixo.
+        </p>
+        <div className="gifts-grid">
+          {starterGifts.map((gift) => (
+            <article key={gift.id} className="gift-card">
+              <h3 className="gift-title">{gift.title}</h3>
+              <p className="gift-desc">{gift.description}</p>
+              <p className="gift-price">R$ {(gift.amount_cents / 100).toFixed(2).replace(".", ",")}</p>
+              <button className="btn btn--outline btn--block" type="button" onClick={() => startCheckout(gift.id)}>
+                Presentear
+              </button>
+            </article>
+          ))}
+        </div>
+        {message ? <p className="form-status form-status--center">{message}</p> : null}
       </div>
-      {message ? <p className="muted">{message}</p> : null}
     </section>
   );
 }

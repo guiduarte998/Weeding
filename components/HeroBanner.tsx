@@ -8,20 +8,22 @@ type HeroBannerProps = {
 
 export default function HeroBanner({ imageUrl, title, subtitle }: HeroBannerProps) {
   return (
-    <section className="section hero-banner">
+    <section className="hero-banner">
       <div className="hero-media">
         <Image
           src={imageUrl}
-          alt="Wedding couple"
+          alt="Guilherme e Kelly — save the date"
           fill
           className="hero-image"
           priority
+          sizes="100vw"
         />
         <div className="hero-overlay" />
         <div className="hero-content">
           <div className="hero-content-card">
+            <p className="hero-kicker">O casamento de</p>
             <h1>{title}</h1>
-            <p>{subtitle}</p>
+            <p className="hero-subline">{subtitle}</p>
           </div>
         </div>
       </div>
