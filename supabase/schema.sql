@@ -65,7 +65,7 @@ create table if not exists public.gift_orders (
 -- Seed data for first preview
 insert into public.events (event_type, title, starts_at, location_name, address, maps_url, notes)
 values
-  ('civil', 'Civil Ceremony', '2026-09-21 10:30:00+00', 'City Hall', 'Main Street 123', 'https://maps.google.com', 'Bring ID document.'),
+  ('civil', 'Civil Ceremony', '2026-09-21 10:00:00+00', 'City Hall', 'Main Street 123', 'https://maps.google.com', 'Bring ID document.'),
   ('reception', 'Reception Party', '2026-09-21 19:00:00+00', 'Garden Venue', 'Sunset Avenue 777', 'https://maps.google.com', 'Cocktail attire.')
 on conflict do nothing;
 

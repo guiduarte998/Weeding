@@ -6,7 +6,7 @@ const events = [
   {
     title: "Civil (Cartório)",
     date: "13 de junho de 2026",
-    time: "10h30",
+    time: "10h00",
     place: "Cartório Cambuci, São Paulo",
     mapsUrl: "https://www.google.com/maps/search/?api=1&query=Cart%C3%B3rio%20Cambuci%2C%20S%C3%A3o%20Paulo",
     mapsEmbedUrl:

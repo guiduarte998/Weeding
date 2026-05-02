@@ -6,7 +6,7 @@ export default function LocaisPage() {
     <InviteSubpageShell
       title="Locais"
       eyebrow="Como chegar"
-      lede="Mapas do civil e da cerimônia. Toque no mapa para explorar; use o botão para abrir no aplicativo."
+      lede="Mapas do civil e da celebração. Toque no mapa para explorar; use o botão para abrir no aplicativo."
       contentLayout="bleed"
     >
       <section id="locais" className="page-invite-sub__section" aria-label="Mapas dos eventos">

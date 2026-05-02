@@ -10,8 +10,8 @@ const USE_CANVA_EMBED = false;
 const INVITE_LINK_HOTSPOT_HREF = "/locais";
 
 const INVITE_FILES = {
-  png: "nós vamos nos casar! (1).png",
-  svg: "nós vamos nos casar! (1).svg"
+  png: "nós vamos nos casar! (2).png",
+  svg: "nós vamos nos casar! (2).svg"
 } as const;
 
 const CANVA_EMBED_SRC =
@@ -53,7 +53,7 @@ export default function CanvaInviteEmbed() {
             <iframe
               title="Convite do casamento Kelly e Guilherme (Canva)"
               src={CANVA_EMBED_SRC}
-              loading="eager"
+              loading="lazy"
               allowFullScreen
               allow="fullscreen"
             />

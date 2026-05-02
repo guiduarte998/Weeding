@@ -363,9 +363,12 @@ a {
   height: var(--invite-hotspot-link-h);
 }
 
-/* Embed Canva (mesma proporção do código de incorporação) */
+/* Embed Canva (proporção e extras do código de incorporação atualizado) */
 .invite-visual-frame--embed {
   box-shadow: 0 2px 8px 0 rgba(63, 69, 81, 0.16);
+  margin-top: 1.6em;
+  margin-bottom: 0.9em;
+  will-change: transform;
 }
 
 .invite-canva-embed {
@@ -373,6 +376,7 @@ a {
   width: 100%;
   height: 0;
   padding-top: 562.2255%;
+  padding-bottom: 0;
   overflow: hidden;
 }
 

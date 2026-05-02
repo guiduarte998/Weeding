@@ -15,7 +15,7 @@ type Gift = {
 const starterGifts: Gift[] = [
   {
     id: 1,
-    title: "Bravinho & rapidinho tunado",
+    title: "Bravinho & rapidinho tunado para a noiva (ou para os noivos)",
     amount_cents: 4000000,
     imageSrc: "/fiat500.jpg"
   },
