@@ -1016,6 +1016,21 @@ a {
   box-shadow: 0 0 0 3px rgba(107, 42, 50, 0.12);
 }
 
+.form-field-hint {
+  display: block;
+  margin: 0.2rem 0 0.85rem;
+  font-size: 0.78rem;
+  line-height: 1.35;
+}
+
+.form-dark .form-field-hint {
+  color: rgba(242, 240, 236, 0.48);
+}
+
+.form-invite .form-field-hint {
+  color: rgba(74, 28, 34, 0.55);
+}
+
 .btn--invite-primary {
   background: var(--invite-burgundy);
   color: #faf6f2;
@@ -1095,6 +1110,208 @@ a {
 
 .gift-card--invite .gift-card-body {
   padding: 1.15rem 1.25rem 1.35rem;
+}
+
+/* ——— Modal PIX (presentes) ——— */
+.pix-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(1rem, 4vw, 2rem);
+  background: rgba(15, 10, 12, 0.55);
+  backdrop-filter: blur(4px);
+}
+
+.pix-modal {
+  position: relative;
+  width: 100%;
+  max-width: 420px;
+  max-height: min(92vh, 720px);
+  overflow-y: auto;
+  padding: clamp(1.25rem, 4vw, 1.75rem);
+  background: var(--bg-card);
+  border: 1px solid var(--border-strong);
+  color: var(--text);
+  border-radius: 10px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+}
+
+.pix-modal--invite {
+  background: #fffef9;
+  border: 1px solid rgba(107, 42, 50, 0.22);
+  color: #2a1a1d;
+  box-shadow: 0 20px 48px rgba(74, 28, 34, 0.18);
+}
+
+.pix-modal-close {
+  position: absolute;
+  top: 0.65rem;
+  right: 0.65rem;
+  width: 2.25rem;
+  height: 2.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 6px;
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+  background: transparent;
+  color: inherit;
+  opacity: 0.65;
+}
+
+.pix-modal-close:hover {
+  opacity: 1;
+  background: rgba(0, 0, 0, 0.06);
+}
+
+.pix-modal--invite .pix-modal-close:hover {
+  background: rgba(107, 42, 50, 0.08);
+}
+
+.pix-modal-title {
+  font-family: var(--font-serif), Georgia, serif;
+  font-size: 1.35rem;
+  font-weight: 500;
+  margin: 0 2rem 0.5rem 0;
+  padding-right: 1.5rem;
+}
+
+.pix-modal--invite .pix-modal-title {
+  color: var(--invite-burgundy-deep);
+}
+
+.pix-modal-gift {
+  margin: 0 0 0.75rem;
+  font-size: 0.95rem;
+  line-height: 1.45;
+}
+
+.pix-modal-gift strong {
+  display: block;
+}
+
+.pix-modal-amount {
+  display: block;
+  margin-top: 0.2rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
+.pix-modal--invite .pix-modal-amount {
+  color: var(--invite-burgundy);
+}
+
+.pix-modal-hint {
+  margin: 0 0 1rem;
+  font-size: 0.82rem;
+  line-height: 1.5;
+  opacity: 0.88;
+}
+
+.pix-modal-qr {
+  display: flex;
+  justify-content: center;
+  margin: 0 0 1rem;
+  padding: 0.75rem;
+  background: #fff;
+  border-radius: 8px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.pix-modal--invite .pix-modal-qr {
+  border-color: rgba(107, 42, 50, 0.15);
+}
+
+.pix-modal-qr-img {
+  width: min(260px, 72vw);
+  height: auto;
+  border-radius: 4px;
+}
+
+.pix-modal-label {
+  display: block;
+  font-size: 0.65rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  margin-bottom: 0.35rem;
+  opacity: 0.75;
+}
+
+.pix-modal-code {
+  width: 100%;
+  margin-bottom: 1rem;
+  padding: 0.75rem 0.85rem;
+  font-family: ui-monospace, monospace;
+  font-size: 0.68rem;
+  line-height: 1.45;
+  word-break: break-all;
+  resize: vertical;
+  min-height: 5.5rem;
+  border-radius: 6px;
+  border: 1px solid var(--border-strong);
+  background: rgba(0, 0, 0, 0.2);
+  color: var(--text);
+}
+
+.pix-modal--invite .pix-modal-code {
+  border-color: rgba(107, 42, 50, 0.28);
+  background: #fff;
+  color: #1a1012;
+}
+
+.pix-modal-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+}
+
+.btn--pix-copy {
+  flex: 1;
+  min-width: 160px;
+  background: var(--invite-burgundy);
+  color: #faf6f2;
+  border: 1px solid var(--invite-burgundy);
+}
+
+.btn--pix-copy:hover {
+  background: var(--invite-burgundy-deep);
+  border-color: var(--invite-burgundy-deep);
+  color: #fff;
+}
+
+.btn--invite-outline {
+  background: transparent;
+  color: var(--invite-burgundy-deep);
+  border: 1px solid rgba(107, 42, 50, 0.45);
+}
+
+.btn--invite-outline:hover {
+  border-color: var(--invite-burgundy);
+  color: var(--invite-burgundy);
+}
+
+.pix-modal-feedback {
+  margin: 0.75rem 0 0;
+  font-size: 0.88rem;
+  text-align: center;
+}
+
+.pix-modal-feedback--ok {
+  color: #2d6a4f;
+}
+
+.pix-modal--invite .pix-modal-feedback--ok {
+  color: #1b6b3a;
+}
+
+.pix-modal-feedback--err {
+  color: #c0392b;
 }
 
 /* ——— Home: agenda + galeria (tema convite) ——— */

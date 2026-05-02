@@ -15,8 +15,26 @@ create table if not exists public.rsvps (
   id bigserial primary key,
   guest_name text not null,
   guest_email text not null,
+  guest_cpf text not null,
   attending boolean not null default true,
-  created_at timestamptz not null default now()
+  has_companion boolean not null default false,
+  companion_name text,
+  companion_cpf text,
+  created_at timestamptz not null default now(),
+  constraint rsvps_guest_cpf_format check (char_length(guest_cpf) = 11 and guest_cpf ~ '^[0-9]+$'),
+  constraint rsvps_companion_cpf_format check (
+    companion_cpf is null or (char_length(companion_cpf) = 11 and companion_cpf ~ '^[0-9]+$')
+  ),
+  constraint rsvps_companion_consistency check (
+    (not has_companion and companion_name is null and companion_cpf is null)
+    or (
+      has_companion
+      and companion_name is not null
+      and length(trim(companion_name)) > 0
+      and companion_cpf is not null
+      and char_length(companion_cpf) = 11
+    )
+  )
 );
 
 create index if not exists rsvps_guest_email_idx on public.rsvps (guest_email);

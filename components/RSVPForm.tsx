@@ -1,6 +1,7 @@
 "use client";
 
 import { FormEvent, useState } from "react";
+import { cpfDigitsOnly, isCpfLengthValid } from "@/lib/cpf";
 
 type RSVPFormProps = {
   inviteTheme?: boolean;
@@ -8,10 +9,26 @@ type RSVPFormProps = {
 
 export default function RSVPForm({ inviteTheme = false }: RSVPFormProps) {
   const [status, setStatus] = useState<string>("");
+  const [hasCompanion, setHasCompanion] = useState(false);
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    const formData = new FormData(event.currentTarget);
+    const form = event.currentTarget;
+    const formData = new FormData(form);
+    const guestCpf = cpfDigitsOnly(String(formData.get("guest_cpf") ?? ""));
+    if (!isCpfLengthValid(guestCpf)) {
+      setStatus("Verifique o CPF (11 dígitos).");
+      return;
+    }
+    if (hasCompanion) {
+      const cCpf = cpfDigitsOnly(String(formData.get("companion_cpf") ?? ""));
+      const cName = String(formData.get("companion_name") ?? "").trim();
+      if (!cName || !isCpfLengthValid(cCpf)) {
+        setStatus("Preencha nome e CPF do acompanhante.");
+        return;
+      }
+    }
+
     const payload = Object.fromEntries(formData.entries());
 
     const response = await fetch("/api/rsvp", {
@@ -22,11 +39,13 @@ export default function RSVPForm({ inviteTheme = false }: RSVPFormProps) {
 
     if (response.ok) {
       setStatus("Confirmação salva com sucesso. Obrigado!");
-      event.currentTarget.reset();
+      form.reset();
+      setHasCompanion(false);
       return;
     }
 
-    setStatus("Não foi possível salvar a confirmação. Tente novamente.");
+    const err = await response.json().catch(() => ({}));
+    setStatus(typeof err.error === "string" ? err.error : "Não foi possível salvar a confirmação. Tente novamente.");
   }
 
   const sectionClass = inviteTheme
@@ -63,12 +82,57 @@ export default function RSVPForm({ inviteTheme = false }: RSVPFormProps) {
             <input required type="email" name="guest_email" autoComplete="email" />
           </label>
           <label>
+            CPF
+            <input
+              required
+              name="guest_cpf"
+              inputMode="numeric"
+              autoComplete="off"
+              placeholder="000.000.000-00"
+              maxLength={14}
+              aria-describedby="cpf-hint"
+            />
+            <span id="cpf-hint" className="form-field-hint">
+              11 dígitos; pode enviar com ou sem pontos e traço — guardamos só os números.
+            </span>
+          </label>
+          <label>
             Você vai comparecer?
             <select name="attending" defaultValue="yes">
               <option value="yes">Sim, estarei lá</option>
               <option value="no">Infelizmente não poderei</option>
             </select>
           </label>
+          <label>
+            Terá acompanhante?
+            <select
+              name="has_companion"
+              value={hasCompanion ? "yes" : "no"}
+              onChange={(e) => setHasCompanion(e.target.value === "yes")}
+            >
+              <option value="no">Não</option>
+              <option value="yes">Sim</option>
+            </select>
+          </label>
+          {hasCompanion ? (
+            <>
+              <label>
+                Nome do acompanhante
+                <input required name="companion_name" autoComplete="name" />
+              </label>
+              <label>
+                CPF do acompanhante
+                <input
+                  required
+                  name="companion_cpf"
+                  inputMode="numeric"
+                  autoComplete="off"
+                  placeholder="000.000.000-00"
+                  maxLength={14}
+                />
+              </label>
+            </>
+          ) : null}
           <button
             className={`btn btn--block ${inviteTheme ? "btn--invite-primary" : "btn--primary"}`}
             type="submit"

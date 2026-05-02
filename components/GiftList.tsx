@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useState } from "react";
+import PixGiftModal from "@/components/PixGiftModal";
 
 type Gift = {
   id: number;
@@ -131,17 +132,7 @@ type GiftListProps = {
 };
 
 export default function GiftList({ inviteTheme = false }: GiftListProps) {
-  const [message, setMessage] = useState("");
-
-  async function startCheckout(giftId: number) {
-    const response = await fetch("/api/gifts/checkout", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ giftId })
-    });
-    const data = await response.json();
-    setMessage(data.message ?? "Pagamento iniciado.");
-  }
+  const [pixGift, setPixGift] = useState<Gift | null>(null);
 
   const sectionClass = inviteTheme
     ? "page-invite-sub__gifts"
@@ -186,7 +177,7 @@ export default function GiftList({ inviteTheme = false }: GiftListProps) {
                 <button
                   className={`btn btn--block ${inviteTheme ? "btn--invite-primary" : "btn--outline"}`}
                   type="button"
-                  onClick={() => startCheckout(gift.id)}
+                  onClick={() => setPixGift(gift)}
                 >
                   Presentear
                 </button>
@@ -194,9 +185,13 @@ export default function GiftList({ inviteTheme = false }: GiftListProps) {
             </article>
           ))}
         </div>
-        {message ? (
-          <p className={`form-status form-status--center ${inviteTheme ? "form-status--invite" : ""}`}>{message}</p>
-        ) : null}
+        <PixGiftModal
+          open={pixGift !== null}
+          onClose={() => setPixGift(null)}
+          giftTitle={pixGift?.title ?? ""}
+          giftAmountLabel={pixGift ? formatBRL(pixGift.amount_cents) : ""}
+          inviteTheme={inviteTheme}
+        />
       </div>
     </section>
   );
